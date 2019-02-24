@@ -62,5 +62,4 @@ scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@$MASTER_I
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@$MASTER_IP sh -c "cd /home/ubuntu; \
     export NFS_IP=$NFS_IP; \
     echo $NFS_IP; \
-    nohup bash /home/ubuntu/bootstrap-master.sh > master-boostrap.out 2>master-boostrap.err < /dev/null &"
-    
+    nohup bash /home/ubuntu/bootstrap-master.sh > master-bootstrap.out 2>master-bootstrap.err < /dev/null &"
