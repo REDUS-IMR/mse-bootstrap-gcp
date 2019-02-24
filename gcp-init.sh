@@ -27,7 +27,7 @@ gcloud compute routers nats create nat-config \
 # Create template (no external IPs)
 gcloud compute instance-templates create workers \
   --custom-cpu=96 \
-  --custom-memory=320GB \
+  --custom-memory=160GB \
   --image-family=ubuntu-1810  \
   --image-project=ubuntu-os-cloud \
   --project=$project_name \
