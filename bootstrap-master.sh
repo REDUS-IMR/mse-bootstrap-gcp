@@ -17,6 +17,7 @@ Rscript -e 'install.packages(c("devtools", "data.table", "doParallel", "doRNG", 
 Rscript -e 'devtools::install_github("flr/FLCore")' -e 'devtools::install_github("flr/FLBRP")' -e 'devtools::install_github("flr/FLash")' -e 'devtools::install_github("flr/ggplotFL")' -e 'devtools::install_github("flr/FLAssess")' -e 'devtools::install_github("flr/FLa4a")' -e 'devtools::install_github("flr/mse")' -e 'devtools::install_github("fishfollower/SAM/stockassessment", ref="biomassindex")' -e 'devtools::install_github("shfischer/FLfse/FLfse")'
 
 # Extract source and set working directory
+mkdir -p /home/ubuntu/data/logs
 mkdir -p /home/ubuntu/data/work
 tar -xzf ns-saithe-mse.tgz -C /home/ubuntu/data/work
 cd ~/data/work/ns-saithe-mse
