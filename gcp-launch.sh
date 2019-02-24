@@ -25,5 +25,5 @@ do
     ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p ubuntu@$MASTER_IP" ubuntu@$WORKER_IP sh -c "cd /home/ubuntu; \
         export NFS_IP=$NFS_IP; \
         echo $NFS_IP; \
-        nohup bash /home/ubuntu/bootstrap-workers.sh > /home/ubuntu/data/logs/worker-$id-bootstrap.out 2>/home/ubuntu/data/logs/worker-$id-bootstrap.err < /dev/null &"
+        nohup bash /home/ubuntu/bootstrap-workers.sh > /home/ubuntu/worker-bootstrap.out 2>/home/ubuntu/worker-bootstrap.err < /dev/null &"
 done
