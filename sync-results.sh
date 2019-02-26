@@ -16,13 +16,13 @@ echo "Done! $nofil file(s) synced."
 
 # Print status from all workers
 echo "Getting completion status..."
-workers=11
+workers=($(gcloud compute instances list --filter="name~'worker-'" --format="value(name)"))
 sum=0
-for (( id = 1; id <= $workers; id++ )) 
+for id in "${workers[@]}"
 do
-  num=`ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p ubuntu@$MASTER_IP" ubuntu@worker-$id "cat /home/ubuntu/worker-bootstrap.out | grep HCR_comb= | wc -l"`
+  num=`ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p ubuntu@$MASTER_IP" ubuntu@$id "cat /home/ubuntu/worker-bootstrap.out | grep HCR_comb= | wc -l"`
   sum=$(($sum + $num))
-  echo "worker-$id : $num"
+  echo "$id : $num"
 done
 
 echo "Received $sum replies from $workers workers"
