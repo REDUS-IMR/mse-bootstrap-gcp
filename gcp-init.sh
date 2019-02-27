@@ -39,8 +39,7 @@ gcloud beta filestore instances create nfs-server \
   --location=$project_loc \
   --tier=STANDARD \
   --file-share=name="data",capacity=1TB \
-  --network=name="default" \
-  --no-address
+  --network=name="default"
 
 # Get the NFS IP
 NFS_IP=`gcloud beta filestore instances describe nfs-server --location=$project_loc --format="value(networks.ipAddresses[0])"`
