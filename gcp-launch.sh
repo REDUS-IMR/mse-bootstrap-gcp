@@ -10,7 +10,7 @@ NFS_IP=`gcloud beta filestore instances describe nfs-server --location=$project_
 MASTER_IP=`gcloud compute instances describe master --project=$project_name --format="value(networkInterfaces[0].accessConfigs[0].natIP)"`
 
 # Create worker instances
-workers=10
+workers=11
 for (( id = 1; id <= $workers; id++ )) 
 do 
     gcloud compute instances create worker-$id \
