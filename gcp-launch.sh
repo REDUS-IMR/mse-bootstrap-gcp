@@ -16,9 +16,14 @@ do
     gcloud compute instances create worker-$id \
       --project=$project_name \
       --source-instance-template=workers
+
+    echo "Waiting until the instance is ready..."
+    sleep 25
+
     WORKER_IP=`gcloud compute instances describe worker-$id --project=$project_name --format="value(networkInterfaces[0].networkIP)"`
     while ! scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p ubuntu@$MASTER_IP" bootstrap-workers.sh ubuntu@$WORKER_IP:/home/ubuntu/bootstrap-workers.sh
     do
+        sleep 10
         echo "Trying again..."
     done
 

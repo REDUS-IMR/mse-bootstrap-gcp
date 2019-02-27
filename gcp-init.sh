@@ -51,12 +51,20 @@ gcloud compute instances create master \
   --project=$project_name \
   --machine-type=n1-highcpu-4
 
+echo "Waiting until master is ready..."
+sleep 25
+
 # Initial setup on the master node
 ## Get IP
 MASTER_IP=`gcloud compute instances describe master --project=$project_name --format="value(networkInterfaces[0].accessConfigs[0].natIP)"`
 ## Copy files
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $project_name.tgz ubuntu@$MASTER_IP:/home/ubuntu/ns-saithe-mse.tgz
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@$MASTER_IP:/home/ubuntu/bootstrap-master.sh
+while ! scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $project_name.tgz ubuntu@$MASTER_IP:/home/ubuntu/ns-saithe-mse.tgz
+do
+  sleep 10
+  echo "Trying again..."
+done
+
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bootstrap-master.sh ubuntu@$MASTER_IP:/home/ubuntu/bootstrap-master.sh
 ## Execute commands
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@$MASTER_IP sh -c "cd /home/ubuntu; \
     export NFS_IP=$NFS_IP; \
